@@ -1,26 +1,24 @@
 import { useState } from "react";
-import VideoFeed from "@/components/VideoFeed";
-import ChatSidebar from "@/components/ChatSidebar";
-import VideoUpload from "@/components/VideoUpload";
+import GameStore from "@/components/GameStore";
+import FriendsList from "@/components/FriendsList";
+import GameLibrary from "@/components/GameLibrary";
 import AuthModal from "@/components/AuthModal";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import Icon from "@/components/ui/icon";
 
 const Index = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isFriendsOpen, setIsFriendsOpen] = useState(false);
+  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<string | null>(null);
 
   const handleLogin = (email: string, password: string) => {
-    // Имитация входа
     setUser(email.split("@")[0]);
     setIsAuthenticated(true);
     setIsAuthOpen(false);
-    toast.success("Добро пожаловать в Март! 🚀");
+    toast.success("Добро пожаловать в SteamLike! 🎮");
   };
 
   const handleRegister = (
@@ -28,55 +26,45 @@ const Index = () => {
     password: string,
     username: string,
   ) => {
-    // Имитация регистрации
     setUser(username);
     setIsAuthenticated(true);
     setIsAuthOpen(false);
-    toast.success("Аккаунт создан! Добро пожаловать! 🎉");
+    toast.success("Аккаунт создан! Начинайте играть! 🚀");
   };
 
-  const handleVideoUpload = (videoData: {
-    title: string;
-    description: string;
-    file: File;
-  }) => {
-    // Имитация загрузки видео
-    toast.success(`Видео "${videoData.title}" загружено! 📹`);
-    setIsUploadOpen(false);
-  };
-
-  const handleOpenChat = () => {
+  const handleOpenFriends = () => {
     if (!isAuthenticated) {
       setIsAuthOpen(true);
       return;
     }
-    setIsChatOpen(true);
+    setIsFriendsOpen(true);
   };
 
-  const handleOpenUpload = () => {
+  const handleOpenLibrary = () => {
     if (!isAuthenticated) {
       setIsAuthOpen(true);
       return;
     }
-    setIsUploadOpen(true);
+    setIsLibraryOpen(true);
   };
 
   const handleLogout = () => {
     setUser(null);
     setIsAuthenticated(false);
-    setIsChatOpen(false);
-    toast.success("До свидания! 👋");
+    setIsFriendsOpen(false);
+    setIsLibraryOpen(false);
+    toast.success("До встречи в игре! 👋");
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg font-rubik">
-      {/* Заголовок */}
+    <div className="min-h-screen bg-steam-bg font-rubik">
+      {/* Верхняя панель */}
       <div className="absolute top-4 left-4 z-40 flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-purple-accent rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-sm">М</span>
+          <div className="w-8 h-8 bg-steam-blue rounded-full flex items-center justify-center">
+            <Icon name="Gamepad2" size={16} className="text-white" />
           </div>
-          <h1 className="text-white font-bold text-xl">Март</h1>
+          <h1 className="text-white font-bold text-xl">SteamLike</h1>
         </div>
 
         {isAuthenticated ? (
@@ -102,7 +90,7 @@ const Index = () => {
           <Button
             size="sm"
             onClick={() => setIsAuthOpen(true)}
-            className="bg-purple-accent hover:bg-purple-accent/90 text-white"
+            className="bg-steam-blue hover:bg-steam-blue/90 text-white"
           >
             <Icon name="LogIn" size={16} className="mr-1" />
             Войти
@@ -111,17 +99,20 @@ const Index = () => {
       </div>
 
       {/* Основной контент */}
-      <VideoFeed onOpenChat={handleOpenChat} onOpenUpload={handleOpenUpload} />
+      {isLibraryOpen ? (
+        <GameLibrary onClose={() => setIsLibraryOpen(false)} />
+      ) : (
+        <GameStore
+          onOpenLibrary={handleOpenLibrary}
+          onOpenFriends={handleOpenFriends}
+        />
+      )}
 
-      {/* Боковой чат */}
-      <ChatSidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
-
-      {/* Модальное окно загрузки видео */}
-      <Dialog open={isUploadOpen} onOpenChange={setIsUploadOpen}>
-        <DialogContent className="sm:max-w-lg bg-dark-bg border-gray-700 p-0">
-          <VideoUpload onUpload={handleVideoUpload} />
-        </DialogContent>
-      </Dialog>
+      {/* Список друзей */}
+      <FriendsList
+        isOpen={isFriendsOpen}
+        onClose={() => setIsFriendsOpen(false)}
+      />
 
       {/* Модальное окно авторизации */}
       <AuthModal

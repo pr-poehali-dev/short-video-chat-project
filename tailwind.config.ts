@@ -28,11 +28,11 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#9b87f5",
+          DEFAULT: "#4A90E2",
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#7E69AB",
+          DEFAULT: "#2E5BBA",
           foreground: "#ffffff",
         },
         destructive: {
@@ -40,25 +40,25 @@ export default {
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "#403E43",
-          foreground: "#8E9196",
+          DEFAULT: "#2A3441",
+          foreground: "#8B9BB4",
         },
         accent: {
-          DEFAULT: "#D6BCFA",
-          foreground: "#1A1F2C",
+          DEFAULT: "#66C0F4",
+          foreground: "#171A21",
         },
         popover: {
-          DEFAULT: "#1A1F2C",
+          DEFAULT: "#171A21",
           foreground: "#ffffff",
         },
         card: {
-          DEFAULT: "#1A1F2C",
+          DEFAULT: "#1B2838",
           foreground: "#ffffff",
         },
-        "dark-bg": "#1A1F2C",
-        "dark-card": "#221F26",
-        "purple-accent": "#9b87f5",
-        "purple-light": "#D6BCFA",
+        "steam-bg": "#171A21",
+        "steam-card": "#1B2838",
+        "steam-blue": "#4A90E2",
+        "steam-light": "#66C0F4",
       },
       borderRadius: {
         lg: "var(--radius)",

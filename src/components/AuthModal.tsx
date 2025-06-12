@@ -49,10 +49,10 @@ const AuthModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-dark-card border-gray-700">
+      <DialogContent className="sm:max-w-md bg-steam-card border-gray-700">
         <DialogHeader>
           <DialogTitle className="text-white text-center">
-            Добро пожаловать в Март! 🚀
+            Добро пожаловать в SteamLike! 🎮
           </DialogTitle>
         </DialogHeader>
 
@@ -104,7 +104,7 @@ const AuthModal = ({
 
               <Button
                 onClick={handleLogin}
-                className="w-full bg-purple-accent hover:bg-purple-accent/90"
+                className="w-full bg-steam-blue hover:bg-steam-blue/90"
                 disabled={!loginEmail || !loginPassword}
               >
                 <Icon name="LogIn" size={16} className="mr-2" />
@@ -158,7 +158,7 @@ const AuthModal = ({
 
               <Button
                 onClick={handleRegister}
-                className="w-full bg-purple-accent hover:bg-purple-accent/90"
+                className="w-full bg-steam-blue hover:bg-steam-blue/90"
                 disabled={
                   !registerEmail || !registerPassword || !registerUsername
                 }
